@@ -8,7 +8,13 @@
 </head>
 <body>
     <div class="timer-container">
-        <h1>Timer</h1>
+        <div class="header">
+            <h1>Timer</h1>
+            <div class="settings">
+                <button id="toggle-sound">Sound: On</button>
+                <button id="toggle-theme">Theme: Light</button>
+            </div>
+        </div>
         <timer-component></timer-component>
         <div class="presets">
             <button data-time="10">10s</button>
@@ -26,6 +32,8 @@
             <button id="reset">Reset</button>
         </div>
     </div>
+    <div id="animation-container"></div>
+    <audio id="alarm-sound" src="https://assets.mixkit.co/sfx/preview/mixkit-alarm-digital-bleep-980.mp3" preload="auto"></audio>
     <script src="main.js"></script>
 </body>
 </html>
