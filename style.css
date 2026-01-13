@@ -164,7 +164,7 @@ timer-component .time-display input {
     left: 0;
     width: 80px;
     height: 80px;
-    background-image: url(mouse.svg);
+    background-image: url(https://raw.githubusercontent.com/qmin9339-glitch/Timer/main/mouse1.png);
     background-size: contain;
     background-repeat: no-repeat;
     animation: move-mouse 8s linear infinite;
