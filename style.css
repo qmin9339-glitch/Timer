@@ -74,14 +74,14 @@ body.timer-running timer-component .time-display {
 }
 
 body.timer-running timer-component .time-display input {
-    font-size: 20vw; /* Adjust to screen width */
+    font-size: 60vh; /* Adjust to screen height */
     width: 30vw;
     border-bottom: none;
     color: var(--text-color);
 }
 
 body.timer-running timer-component .time-display span {
-    font-size: 20vw;
+    font-size: 60vh;
     color: var(--text-color);
 }
 
