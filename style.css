@@ -145,18 +145,18 @@ timer-component .time-display input {
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 64px; /* Frame width */
-    height: 64px; /* Frame height */
+    width: 66px; /* Frame width */
+    height: 100px; /* Frame height */
     background-image: url(horse.png);
-    animation: run-horse 0.4s steps(4) infinite, move-horse 10s linear infinite;
+    animation: run-horse 0.4s steps(3) infinite, move-horse 10s linear infinite;
 }
 
 @keyframes run-horse {
     from {
-        background-position: 0 192px; /* fourth row of the sprite sheet */
+        background-position: 0 -100px; /* second row of the sprite sheet */
     }
     to {
-        background-position: -256px 192px; /* 4 frames * 64px */
+        background-position: -198px -100px; /* 3 frames * 66px */
     }
 }
 
