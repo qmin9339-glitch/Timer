@@ -70,6 +70,15 @@ const animationContainer = document.getElementById('animation-container');
 let intervalId = null;
 let remainingTime = 0;
 let soundEnabled = true;
+let userInteracted = false;
+
+function unlockAudio() {
+    if (userInteracted) return;
+    alarmSound.play();
+    alarmSound.pause();
+    alarmSound.currentTime = 0;
+    userInteracted = true;
+}
 
 function updateButtonVisibility(isTimerRunning) {
     startBtn.classList.toggle('hidden', isTimerRunning);
@@ -112,6 +121,8 @@ function resetTimer() {
 }
 
 // --- Event Listeners ---
+document.body.addEventListener('click', unlockAudio, { once: true });
+
 startBtn.addEventListener('click', startTimer);
 stopBtn.addEventListener('click', stopTimer);
 resetBtn.addEventListener('click', resetTimer);

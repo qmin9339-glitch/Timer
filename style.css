@@ -145,18 +145,18 @@ timer-component .time-display input {
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 66px; /* Frame width */
-    height: 100px; /* Frame height */
-    background-image: url(horse.png);
-    animation: run-horse 0.4s steps(3) infinite, move-horse 10s linear infinite;
+    width: 32px;
+    height: 32px;
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCA2NCAzMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8IS0tIEZyYW1lIDEgLS0+CiAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCwwKSI+CiAgICA8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIGZpbGw9IiNlMGY3ZmEiLz4KICAgIDxwYXRoIGQ9Ik01IDIwIEwxMCAxNSBMMjUgMTUgTDIwIDIwIEwyNSAyNSBMMTAgMjUgWiIgZmlsbD0iIzhkNmU2MyIvPgogICAgPGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iNCIgZmlsbD0iIzQyNDI0MiIvPgogIDwvZz4KICA8IS0tIEZyYW1lIDIgLS0+CiAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzIsMCkiPgogICAgPHJlY3QgeD0iMCI yeT0iMCIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiBmaWxsPSIjZTBmN2ZhIi8+CiAgICA8cGF0aCBkPSJNNSAyNSBMMTAgMjAgTDI1IDIwIEwyMCAyNSBMMjUgMjAgTDEwIDIwIFoiIGZpbGw9IiM4ZDZlNjMiLz4KICAgIDxjaXJjbGUgY3g9IjIwIiBjeT0iMTIiIHI9IjQiIGZpbGw9IiM0MjQyNDIiLz4KICA8L2c+Cjwvc3ZnPg==");
+    animation: run-horse 0.4s steps(2) infinite, move-horse 10s linear infinite;
 }
 
 @keyframes run-horse {
     from {
-        background-position: 0 -100px; /* second row of the sprite sheet */
+        background-position: 0 0;
     }
     to {
-        background-position: -198px -100px; /* 3 frames * 66px */
+        background-position: -64px 0;
     }
 }
 
