@@ -66,6 +66,7 @@ const toggleSoundBtn = document.getElementById('toggle-sound');
 const toggleThemeBtn = document.getElementById('toggle-theme');
 const alarmSound = document.getElementById('alarm-sound');
 const animationContainer = document.getElementById('animation-container');
+const stickFigureAnimation = document.getElementById('stick-figure-animation');
 
 let intervalId = null;
 let remainingTime = 0;
@@ -92,14 +93,14 @@ function startTimer() {
     if (remainingTime <= 0) return;
 
     updateButtonVisibility(true);
-    animationContainer.style.display = 'block';
+    animationContainer.style.display = 'block'; // Show the parent container
     intervalId = setInterval(() => {
         remainingTime--;
         timer.setTime(remainingTime);
         if (remainingTime <= 0) {
             clearInterval(intervalId);
             intervalId = null;
-            animationContainer.style.display = 'none';
+            animationContainer.style.display = 'none'; // Hide the parent container
             updateButtonVisibility(false);
             if (soundEnabled) {
                 alarmSound.play();
@@ -111,7 +112,7 @@ function startTimer() {
 function stopTimer() {
     clearInterval(intervalId);
     intervalId = null;
-    animationContainer.style.display = 'none';
+    animationContainer.style.display = 'none'; // Hide the parent container
     updateButtonVisibility(false);
 }
 

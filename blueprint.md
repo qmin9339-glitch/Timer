@@ -13,7 +13,7 @@ This is a timer application that allows users to set a time, start, stop, and re
 *   **Modern Design:** The application will have a clean and modern user interface.
 *   **Sound Notification:** Plays a sound when the timer finishes, with a button to toggle sound on/off.
 *   **Dark/Light Mode:** A button to switch between dark and light themes.
-*   **Animation:** A line-art animation of a running horse is displayed while the timer is running.
+*   **Animation:** A line-art animation of a walking stick figure is displayed while the timer is running.
 *   **Responsive Design:** The layout is optimized for mobile devices.
 
 ## Current Plan
@@ -27,7 +27,7 @@ This is a timer application that allows users to set a time, start, stop, and re
     *   Modify `style.css` to include a dark theme.
     *   Modify `main.js` to handle the theme-toggle.
 4.  **Animation:**
-    *   Add an SVG animation of a running horse to `index.html`.
+    *   Replace the horse animation with a walking stick figure animation (SVG or CSS sprites).
     *   Modify `style.css` to style and position the animation.
     *   Modify `main.js` to show/hide the animation.
 5.  **Responsive Design:**
