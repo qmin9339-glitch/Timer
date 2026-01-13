@@ -66,7 +66,7 @@ const toggleSoundBtn = document.getElementById('toggle-sound');
 const toggleThemeBtn = document.getElementById('toggle-theme');
 const alarmSound = document.getElementById('alarm-sound');
 const animationContainer = document.getElementById('animation-container');
-const stickFigureAnimation = document.getElementById('stick-figure-animation');
+const mouseAnimation = document.getElementById('mouse-animation');
 
 let intervalId = null;
 let remainingTime = 0;
@@ -82,8 +82,7 @@ function unlockAudio() {
 }
 
 function updateButtonVisibility(isTimerRunning) {
-    startBtn.classList.toggle('hidden', isTimerRunning);
-    resetBtn.classList.toggle('hidden', isTimerRunning);
+    document.body.classList.toggle('timer-running', isTimerRunning);
     stopBtn.classList.toggle('hidden', !isTimerRunning);
 }
 
@@ -93,14 +92,14 @@ function startTimer() {
     if (remainingTime <= 0) return;
 
     updateButtonVisibility(true);
-    animationContainer.style.display = 'block'; // Show the parent container
+    animationContainer.style.display = 'block';
     intervalId = setInterval(() => {
         remainingTime--;
         timer.setTime(remainingTime);
         if (remainingTime <= 0) {
             clearInterval(intervalId);
             intervalId = null;
-            animationContainer.style.display = 'none'; // Hide the parent container
+            animationContainer.style.display = 'none';
             updateButtonVisibility(false);
             if (soundEnabled) {
                 alarmSound.play();
@@ -112,7 +111,7 @@ function startTimer() {
 function stopTimer() {
     clearInterval(intervalId);
     intervalId = null;
-    animationContainer.style.display = 'none'; // Hide the parent container
+    animationContainer.style.display = 'none';
     updateButtonVisibility(false);
 }
 

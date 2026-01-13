@@ -34,14 +34,31 @@ body.dark-mode {
     padding: 20px 40px;
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, padding 0.3s;
 }
 
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
+.header, .presets, #start, #reset {
+    transition: opacity 0.3s, visibility 0.3s;
+}
+
+body.timer-running .header,
+body.timer-running .presets,
+body.timer-running #start,
+body.timer-running #reset {
+    opacity: 0;
+    visibility: hidden;
+    height: 0;
+    margin: 0;
+    padding: 0;
+}
+
+body.timer-running .timer-container {
+    padding: 60px 40px;
+}
+
+body.timer-running timer-component .time-display input {
+    font-size: 4em;
+    width: 100px;
 }
 
 .settings button {
@@ -128,7 +145,7 @@ timer-component .time-display input {
     color: var(--text-color);
     border-bottom: 2px solid var(--input-border);
     margin: 0 5px;
-    transition: color 0.3s;
+    transition: color 0.3s, font-size 0.3s, width 0.3s;
 }
 
 #animation-container {
@@ -136,25 +153,26 @@ timer-component .time-display input {
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 50px; /* Generic height */
+    height: 100px;
     overflow: hidden;
     display: none;
-    background-color: transparent; /* Ensure transparent background */
 }
 
-#stick-figure-animation { /* Renamed from #horse-animation */
+#mouse-animation {
     position: absolute;
-    bottom: 0;
+    bottom: 10px;
     left: 0;
-    width: 20px; /* Simple rectangle width */
-    height: 40px; /* Simple rectangle height */
-    background-color: var(--text-color); /* Simple placeholder: a block */
-    animation: move-animation 5s linear infinite; /* Generic movement */
+    width: 80px;
+    height: 80px;
+    background-image: url(mouse.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    animation: move-mouse 8s linear infinite;
 }
 
-@keyframes move-animation { /* Renamed from @keyframes move-horse */
+@keyframes move-mouse {
     from {
-        transform: translateX(-20px);
+        transform: translateX(-80px);
     }
     to {
         transform: translateX(100vw);
