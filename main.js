@@ -71,21 +71,18 @@ let intervalId = null;
 let remainingTime = 0;
 let soundEnabled = true;
 
-// --- Animation ---
-const horseSvg = `
-<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-  <path d="M50 150 Q70 100 100 120 T150 100 Q170 120 150 150 L140 170 L130 160 L120 170 L110 160 L100 170 L90 160 L80 170 L70 160 L60 170 Z" fill="none" stroke="var(--text-color)" stroke-width="2" />
-  <path d="M100 120 L100 80 Q110 60 120 80 L120 120" fill="none" stroke="var(--text-color)" stroke-width="2" />
-  <circle cx="110" cy="75" r="3" fill="var(--text-color)" />
-</svg>
-`;
-animationContainer.innerHTML = horseSvg;
+function updateButtonVisibility(isTimerRunning) {
+    startBtn.classList.toggle('hidden', isTimerRunning);
+    resetBtn.classList.toggle('hidden', isTimerRunning);
+    stopBtn.classList.toggle('hidden', !isTimerRunning);
+}
 
 function startTimer() {
     if (intervalId) return;
     remainingTime = timer.getTimeInSeconds();
     if (remainingTime <= 0) return;
 
+    updateButtonVisibility(true);
     animationContainer.style.display = 'block';
     intervalId = setInterval(() => {
         remainingTime--;
@@ -94,6 +91,7 @@ function startTimer() {
             clearInterval(intervalId);
             intervalId = null;
             animationContainer.style.display = 'none';
+            updateButtonVisibility(false);
             if (soundEnabled) {
                 alarmSound.play();
             }
@@ -105,6 +103,7 @@ function stopTimer() {
     clearInterval(intervalId);
     intervalId = null;
     animationContainer.style.display = 'none';
+    updateButtonVisibility(false);
 }
 
 function resetTimer() {

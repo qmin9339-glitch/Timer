@@ -88,7 +88,11 @@ body.dark-mode .presets button:hover {
     border-radius: 5px;
     color: white;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, opacity 0.3s;
+}
+
+.controls .hidden {
+    display: none;
 }
 
 #start {
@@ -132,22 +136,33 @@ timer-component .time-display input {
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 100px;
+    height: 64px; /* Frame height */
     overflow: hidden;
     display: none;
 }
 
-#animation-container svg {
+#horse-animation {
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 150px;
-    animation: run-horse 10s linear infinite;
+    width: 64px; /* Frame width */
+    height: 64px; /* Frame height */
+    background-image: url(horse.png);
+    animation: run-horse 0.4s steps(4) infinite, move-horse 10s linear infinite;
 }
 
 @keyframes run-horse {
     from {
-        transform: translateX(-150px);
+        background-position: 0 192px; /* fourth row of the sprite sheet */
+    }
+    to {
+        background-position: -256px 192px; /* 4 frames * 64px */
+    }
+}
+
+@keyframes move-horse {
+    from {
+        transform: translateX(-64px);
     }
     to {
         transform: translateX(100vw);
