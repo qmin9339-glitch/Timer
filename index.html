@@ -1,14 +1,31 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hello World</title>
-  <link href='/style.css' rel='stylesheet'>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timer</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Hello, world!</h1>
-  <button onclick="console.log('hello');">Press me</button>
-  <script defer type="text/javascript" src="/main.js"></script>
+    <div class="timer-container">
+        <h1>Timer</h1>
+        <timer-component></timer-component>
+        <div class="presets">
+            <button data-time="10">10s</button>
+            <button data-time="20">20s</button>
+            <button data-time="30">30s</button>
+            <button data-time="60">1m</button>
+            <button data-time="120">2m</button>
+            <button data-time="180">3m</button>
+            <button data-time="300">5m</button>
+            <button data-time="600">10m</button>
+        </div>
+        <div class="controls">
+            <button id="start">Start</button>
+            <button id="stop">Stop</button>
+            <button id="reset">Reset</button>
+        </div>
+    </div>
+    <script src="main.js"></script>
 </body>
 </html>
