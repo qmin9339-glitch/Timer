@@ -8,6 +8,9 @@ This is a timer application that allows users to set a time, start, stop, and re
 
 *   **Timer Display:** Shows hours, minutes, and seconds. The time is editable.
 *   **Distraction-Free Timer View:** When the timer is running, the screen shows only the timer numbers (enlarged) and the "Stop" button.
+*   **Continuous Looping Alarm:** When the timer finishes, the alarm sound loops indefinitely until the "Stop" button is pressed.
+*   **Stop Button Reverts Display:** Pressing the "Stop" button stops the continuous alarm and reverts the display to the initial screen, showing all controls.
+*   **Retain Last Timer Setting:** Upon returning to the initial screen after an alarm, the timer input fields retain the last set time.
 *   **Preset Times:** Buttons for 10s, 20s, 30s, 1m, 2m, 3m, 5m, and 10m.
 *   **Controls:** Start, Stop, and Reset buttons.
 *   **Web Components:** The timer will be built as a Web Component for encapsulation and reusability.
@@ -25,6 +28,9 @@ This is a timer application that allows users to set a time, start, stop, and re
     *   Add a `.timer-running` class to the body to control visibility of elements.
     *   Hide non-essential elements and enlarge the timer display in the `.timer-running` state.
     *   Update the animation to use the new `mouse.png`.
-4.  **Update `main.js`:**
+4.  **Modify `main.js` for new behavior:**
+    *   Set `alarmSound.loop = true;` when the timer finishes.
+    *   Ensure `stopTimer` pauses the alarm and resets its time.
+    *   Store the initial timer duration (`lastSetTime`) and use it to reset the timer display after an alarm is stopped.
     *   Toggle the `.timer-running` class on the body when the timer starts and stops.
 5.  **Firebase Integration:** Add Firebase server configuration.

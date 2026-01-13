@@ -72,6 +72,7 @@ let intervalId = null;
 let remainingTime = 0;
 let soundEnabled = true;
 let userInteracted = false;
+let lastSetTime = 0;
 
 function unlockAudio() {
     if (userInteracted) return;
@@ -88,7 +89,8 @@ function updateButtonVisibility(isTimerRunning) {
 
 function startTimer() {
     if (intervalId) return;
-    remainingTime = timer.getTimeInSeconds();
+    lastSetTime = timer.getTimeInSeconds(); // Store the initial time
+    remainingTime = lastSetTime;
     if (remainingTime <= 0) return;
 
     updateButtonVisibility(true);
@@ -100,8 +102,8 @@ function startTimer() {
             clearInterval(intervalId);
             intervalId = null;
             animationContainer.style.display = 'none';
-            updateButtonVisibility(false);
             if (soundEnabled) {
+                alarmSound.loop = true; // Loop the alarm
                 alarmSound.play();
             }
         }
@@ -113,11 +115,16 @@ function stopTimer() {
     intervalId = null;
     animationContainer.style.display = 'none';
     updateButtonVisibility(false);
+    alarmSound.pause();
+    alarmSound.currentTime = 0;
+    alarmSound.loop = false; // Stop looping
+    timer.setTime(lastSetTime); // Set timer back to last set time
 }
 
 function resetTimer() {
-    stopTimer();
-    timer.setTime(0);
+    stopTimer(); // This will also reset the display to lastSetTime
+    timer.setTime(0); // Then reset to 0
+    lastSetTime = 0;
 }
 
 // --- Event Listeners ---
@@ -131,6 +138,7 @@ presets.addEventListener('click', (e) => {
     if (e.target.tagName === 'BUTTON') {
         const time = parseInt(e.target.dataset.time);
         timer.setTime(time);
+        lastSetTime = time; // Update lastSetTime when a preset is selected
     }
 });
 
