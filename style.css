@@ -53,12 +53,36 @@ body.timer-running #reset {
 }
 
 body.timer-running .timer-container {
-    padding: 60px 40px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    box-shadow: none;
+    border-radius: 0;
+    background-color: var(--bg-color);
+}
+
+body.timer-running timer-component .time-display {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    width: 100%;
 }
 
 body.timer-running timer-component .time-display input {
-    font-size: 4em;
-    width: 100px;
+    font-size: 15vw; /* Adjust to screen width */
+    width: 25vw;
+    border-bottom: none;
+    color: var(--text-color);
+}
+
+body.timer-running timer-component .time-display span {
+    font-size: 15vw;
+    color: var(--text-color);
 }
 
 .settings button {
