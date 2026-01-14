@@ -10,7 +10,7 @@ class TimerComponent extends HTMLElement {
                     align-items: center;
                 }
                 input {
-                    width: 60px; /* Adjust width for 64px font size */
+                    width: 70px; /* Adjusted width for two digits */
                     text-align: center;
                     border: none;
                     background: transparent;
@@ -18,10 +18,10 @@ class TimerComponent extends HTMLElement {
                     border-bottom: 2px solid var(--input-border, #ccc);
                     margin: 0 5px;
                     transition: color 0.3s;
-                    font-size: 64px;
+                    font-size: 32px; /* Base font size */
                 }
                 span {
-                    font-size: 64px;
+                    font-size: 32px; /* Base font size */
                 }
             </style>
             <div class="time-display">
@@ -96,6 +96,11 @@ function startTimer() {
     updateButtonVisibility(true);
     animationContainer.style.display = 'block';
 
+    const inputs = timer.shadowRoot.querySelectorAll('input');
+    const spans = timer.shadowRoot.querySelectorAll('span');
+    inputs.forEach(input => input.style.fontSize = '64px');
+    spans.forEach(span => span.style.fontSize = '64px');
+
     intervalId = setInterval(() => {
         remainingTime--;
         timer.setTime(remainingTime);
@@ -120,6 +125,11 @@ function stopTimer() {
     alarmSound.currentTime = 0;
     alarmSound.loop = false; // Stop looping
     timer.setTime(lastSetTime); // Set timer back to last set time
+
+    const inputs = timer.shadowRoot.querySelectorAll('input');
+    const spans = timer.shadowRoot.querySelectorAll('span');
+    inputs.forEach(input => input.style.fontSize = '32px'); // Reset to base font size
+    spans.forEach(span => span.style.fontSize = '32px'); // Reset to base font size
 }
 
 function resetTimer() {
