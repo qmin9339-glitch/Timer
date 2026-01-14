@@ -10,7 +10,6 @@ class TimerComponent extends HTMLElement {
                     align-items: center;
                 }
                 input {
-                    width: 50px;
                     text-align: center;
                     border: none;
                     background: transparent;
