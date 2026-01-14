@@ -143,7 +143,6 @@ body.dark-mode .presets button:hover {
     border-radius: 5px;
     color: white;
     cursor: pointer;
-    transition: background-color 0.3s, opacity 0.3s;
 }
 
 .controls .hidden {
