@@ -145,10 +145,6 @@ body.dark-mode .presets button:hover {
     cursor: pointer;
 }
 
-.controls .hidden {
-    display: none;
-}
-
 #start {
     background-color: #28a745;
 }

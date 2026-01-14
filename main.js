@@ -86,31 +86,31 @@ function unlockAudio() {
 function updateButtonVisibility(state) { // 'initial', 'running', 'paused', 'finished', 'alarmRinging'
     document.body.classList.remove('timer-running', 'alarm-ringing'); // Clear all state classes first
     
-    // Explicitly hide all buttons first, then show based on state
-    startBtn.classList.add('hidden');
-    pauseBtn.classList.add('hidden');
-    resetBtn.classList.add('hidden');
-    stopAlarmBtn.classList.add('hidden');
+    // Explicitly hide all buttons first
+    startBtn.style.display = 'none';
+    pauseBtn.style.display = 'none';
+    resetBtn.style.display = 'none';
+    stopAlarmBtn.style.display = 'none';
 
     switch (state) {
         case 'initial':
         case 'finished':
-            startBtn.classList.remove('hidden');
+            startBtn.style.display = 'inline-block';
             startBtn.textContent = 'Start';
-            resetBtn.classList.remove('hidden');
+            resetBtn.style.display = 'inline-block';
             break;
         case 'running':
-            pauseBtn.classList.remove('hidden'); // Pause button is visible when running
+            pauseBtn.style.display = 'inline-block'; // Pause button is visible when running
             document.body.classList.add('timer-running');
             break;
         case 'paused':
-            startBtn.classList.remove('hidden');
+            startBtn.style.display = 'inline-block';
             startBtn.textContent = 'Resume';
-            resetBtn.classList.remove('hidden');
+            resetBtn.style.display = 'inline-block';
             document.body.classList.remove('timer-running');
             break;
         case 'alarmRinging':
-            stopAlarmBtn.classList.remove('hidden'); // Stop Alarm button is visible
+            stopAlarmBtn.style.display = 'inline-block'; // Stop Alarm button is visible
             document.body.classList.add('alarm-ringing');
             break;
     }
