@@ -10,7 +10,8 @@
 body {
     font-family: sans-serif;
     display: flex;
-    justify-content: center;
+    flex-direction: column; /* Arrange children vertically */
+    justify-content: space-between; /* Push content to top/bottom */
     align-items: center;
     height: 100vh;
     background-color: var(--bg-color);
@@ -35,6 +36,11 @@ body.dark-mode {
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s, padding 0.3s;
+    flex-grow: 1; /* Allow the timer-container to grow and push footer down */
+    display: flex; /* Make it a flex container to center its children */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .header, .presets, #start, #reset {
