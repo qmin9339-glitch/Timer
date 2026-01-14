@@ -175,8 +175,13 @@ body.timer-running #pause {
     background-color: #007bff;
 }
 
-#reset:hover {
-    background-color: #0069d9;
+#stop-alarm {
+    background-color: #ff9800; /* Orange for Stop Alarm */
+    display: none; /* Hidden by default */
+}
+
+#stop-alarm:hover {
+    background-color: #fb8c00;
 }
 
 body:not(.timer-running) timer-component .time-display input {
