@@ -93,11 +93,6 @@ function startTimer() {
     updateButtonVisibility(true);
     animationContainer.style.display = 'block';
 
-    const inputs = timer.shadowRoot.querySelectorAll('input');
-    const spans = timer.shadowRoot.querySelectorAll('span');
-    inputs.forEach(input => input.style.fontSize = '10em');
-    spans.forEach(span => span.style.fontSize = '10em');
-
     intervalId = setInterval(() => {
         remainingTime--;
         timer.setTime(remainingTime);
@@ -122,11 +117,6 @@ function stopTimer() {
     alarmSound.currentTime = 0;
     alarmSound.loop = false; // Stop looping
     timer.setTime(lastSetTime); // Set timer back to last set time
-
-    const inputs = timer.shadowRoot.querySelectorAll('input');
-    const spans = timer.shadowRoot.querySelectorAll('span');
-    inputs.forEach(input => input.style.fontSize = '');
-    spans.forEach(span => span.style.fontSize = '');
 }
 
 function resetTimer() {

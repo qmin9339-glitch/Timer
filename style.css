@@ -73,6 +73,10 @@ body.timer-running timer-component .time-display {
     width: 100%;
 }
 
+.header {
+    font-size: 32px;
+}
+
 body.timer-running timer-component .time-display input {
     border-bottom: none;
     color: var(--text-color);
@@ -158,7 +162,7 @@ body.dark-mode .presets button:hover {
 }
 
 body:not(.timer-running) timer-component .time-display input {
-    font-size: 4em;
+    font-size: 32px;
     text-align: center;
     border: none;
     background: transparent;
