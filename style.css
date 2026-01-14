@@ -74,14 +74,14 @@ body.timer-running timer-component .time-display {
 }
 
 body.timer-running timer-component .time-display input {
-    font-size: 60vh; /* Adjust to screen height */
-    width: 30vw;
+    font-size: 80vh;
+    width: 40vw;
     border-bottom: none;
     color: var(--text-color);
 }
 
 body.timer-running timer-component .time-display span {
-    font-size: 60vh;
+    font-size: 80vh;
     color: var(--text-color);
 }
 
@@ -162,7 +162,7 @@ body.dark-mode .presets button:hover {
 
 timer-component .time-display input {
     width: 50px;
-    font-size: 2em;
+    font-size: 4em;
     text-align: center;
     border: none;
     background: transparent;
@@ -188,7 +188,6 @@ timer-component .time-display input {
     left: 0;
     width: 80px;
     height: 80px;
-    background-image: url(https://raw.githubusercontent.com/qmin9339-glitch/Timer/main/mouse1.png);
     background-size: contain;
     background-repeat: no-repeat;
     animation: move-mouse 8s linear infinite;
