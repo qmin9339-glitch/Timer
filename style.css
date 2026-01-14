@@ -74,8 +74,8 @@ body.timer-running timer-component .time-display {
 }
 
 body.timer-running timer-component .time-display input {
-    font-size: min(80vh, 40vw);
-    width: min(40vw, 80vh);
+    font-size: min(80vh, 45vw);
+    width: min(45vw, 80vh);
     border-bottom: none;
     color: var(--text-color);
 }
@@ -160,7 +160,7 @@ body.dark-mode .presets button:hover {
     background-color: #0069d9;
 }
 
-timer-component .time-display input {
+body:not(.timer-running) timer-component .time-display input {
     font-size: 4em;
     text-align: center;
     border: none;
