@@ -85,8 +85,10 @@ function unlockAudio() {
 
 function updateButtonVisibility(state) { // 'initial', 'running', 'paused', 'finished', 'alarmRinging'
     document.body.classList.remove('timer-running', 'alarm-ringing'); // Clear all state classes first
+    
+    // Explicitly hide all buttons first, then show based on state
     startBtn.classList.add('hidden');
-    // pauseBtn visibility is now CSS controlled based on body.timer-running
+    pauseBtn.classList.add('hidden');
     resetBtn.classList.add('hidden');
     stopAlarmBtn.classList.add('hidden');
 
@@ -98,7 +100,7 @@ function updateButtonVisibility(state) { // 'initial', 'running', 'paused', 'fin
             resetBtn.classList.remove('hidden');
             break;
         case 'running':
-            startBtn.classList.add('hidden'); // Hide startBtn when running
+            pauseBtn.classList.remove('hidden'); // Pause button is visible when running
             document.body.classList.add('timer-running');
             break;
         case 'paused':
@@ -108,8 +110,7 @@ function updateButtonVisibility(state) { // 'initial', 'running', 'paused', 'fin
             document.body.classList.remove('timer-running');
             break;
         case 'alarmRinging':
-            startBtn.classList.add('hidden'); // Hide startBtn when alarm is ringing
-            stopAlarmBtn.classList.remove('hidden');
+            stopAlarmBtn.classList.remove('hidden'); // Stop Alarm button is visible
             document.body.classList.add('alarm-ringing');
             break;
     }
