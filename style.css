@@ -74,14 +74,14 @@ body.timer-running timer-component .time-display {
 }
 
 body.timer-running timer-component .time-display input {
-    font-size: 80vh;
-    width: 40vw;
+    font-size: min(80vh, 40vw);
+    width: min(40vw, 80vh);
     border-bottom: none;
     color: var(--text-color);
 }
 
 body.timer-running timer-component .time-display span {
-    font-size: 80vh;
+    font-size: min(80vh, 40vw);
     color: var(--text-color);
 }
 
@@ -161,7 +161,6 @@ body.dark-mode .presets button:hover {
 }
 
 timer-component .time-display input {
-    width: 50px;
     font-size: 4em;
     text-align: center;
     border: none;
@@ -188,6 +187,7 @@ timer-component .time-display input {
     left: 0;
     width: 80px;
     height: 80px;
+    background-image: url(mouse1.png);
     background-size: contain;
     background-repeat: no-repeat;
     animation: move-mouse 8s linear infinite;
