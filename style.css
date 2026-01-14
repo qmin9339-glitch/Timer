@@ -162,7 +162,6 @@ body.dark-mode .presets button:hover {
 }
 
 body:not(.timer-running) timer-component .time-display input {
-    font-size: 32px;
     text-align: center;
     border: none;
     background: transparent;

@@ -17,8 +17,10 @@ class TimerComponent extends HTMLElement {
                     border-bottom: 2px solid var(--input-border, #ccc);
                     margin: 0 5px;
                     transition: color 0.3s;
+                    font-size: 32px;
                 }
                 span {
+                    font-size: 32px;
                 }
             </style>
             <div class="time-display">
