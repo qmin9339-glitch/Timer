@@ -124,8 +124,14 @@ function startTimer() {
         remainingTime = lastSetTime;
     }
     
-    if (remainingTime <= 0) {
-        resetTimer(); // If starting with 0, reset everything and don't start timer
+    // Only start if there's time remaining OR if it's a resume from pause.
+    // If remainingTime is 0 and it's not a resume, it means no time is set.
+    if (remainingTime <= 0 && !isPaused) {
+        // If no time is set and it's a fresh start, do not start the timer.
+        // Ensure buttons are in the initial state.
+        updateButtonVisibility('initial');
+        timer.setTime(0); // Display 00:00:00
+        lastSetTime = 0;
         return;
     }
 
