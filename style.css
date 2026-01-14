@@ -74,13 +74,13 @@ body.timer-running timer-component .time-display {
 }
 
 body.timer-running timer-component .time-display input {
-    font-size: min(60vh, 60vw);
+    font-size: 50vw;
     border-bottom: none;
     color: var(--text-color);
 }
 
 body.timer-running timer-component .time-display span {
-    font-size: min(60vh, 60vw);
+    font-size: 50vw;
     color: var(--text-color);
 }
 
