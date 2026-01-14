@@ -212,7 +212,6 @@ resetBtn.addEventListener('click', resetTimer);
 presets.addEventListener('click', (e) => {
     if (e.target.tagName === 'BUTTON') {
         const time = parseInt(e.target.dataset.time);
-        timer.setTime(time);
         lastSetTime = time; // Update lastSetTime when a preset is selected
         remainingTime = time; // Update remainingTime for potential resume
         isPaused = false; // Not paused if new preset selected
@@ -223,6 +222,7 @@ presets.addEventListener('click', (e) => {
         resetBtn.style.display = 'inline-block';
         stopAlarmBtn.style.display = 'none';
         document.body.classList.remove('timer-running', 'alarm-ringing');
+        timer.setTime(time); // Ensure timer display is updated
     }
 });
 
