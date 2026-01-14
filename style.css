@@ -157,11 +157,11 @@ body.dark-mode .presets button:hover {
     background-color: #218838;
 }
 
-#stop {
-    background-color: #dc3545;
+#pause {
+    background-color: #dc3545; /* Red for pause/stop */
 }
 
-#stop:hover {
+#pause:hover {
     background-color: #c82333;
 }
 

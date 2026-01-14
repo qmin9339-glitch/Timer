@@ -59,7 +59,7 @@ customElements.define('timer-component', TimerComponent);
 
 const timer = document.querySelector('timer-component');
 const startBtn = document.getElementById('start');
-const stopBtn = document.getElementById('stop');
+const pauseBtn = document.getElementById('pause'); // Renamed from stopBtn
 const resetBtn = document.getElementById('reset');
 const presets = document.querySelector('.presets');
 const toggleSoundBtn = document.getElementById('toggle-sound');
@@ -83,14 +83,29 @@ function unlockAudio() {
     userInteracted = true;
 }
 
-function updateButtonVisibility(isTimerRunning) {
-    document.body.classList.toggle('timer-running', isTimerRunning);
-    if (isTimerRunning) {
-        startBtn.classList.add('hidden');
-        stopBtn.classList.remove('hidden');
-    } else {
-        startBtn.classList.remove('hidden');
-        stopBtn.classList.add('hidden');
+function updateButtonVisibility(state) { // 'initial', 'running', 'paused', 'finished'
+    switch (state) {
+        case 'initial':
+        case 'finished':
+            startBtn.classList.remove('hidden');
+            startBtn.textContent = 'Start';
+            pauseBtn.classList.add('hidden');
+            resetBtn.classList.remove('hidden');
+            document.body.classList.remove('timer-running');
+            break;
+        case 'running':
+            startBtn.classList.add('hidden');
+            pauseBtn.classList.remove('hidden');
+            resetBtn.classList.add('hidden');
+            document.body.classList.add('timer-running');
+            break;
+        case 'paused':
+            startBtn.classList.remove('hidden');
+            startBtn.textContent = 'Resume';
+            pauseBtn.classList.add('hidden');
+            resetBtn.classList.remove('hidden');
+            document.body.classList.remove('timer-running');
+            break;
     }
 }
 
@@ -102,12 +117,14 @@ function startTimer() {
         remainingTime = lastSetTime;
     }
     
-    if (remainingTime <= 0) return;
+    if (remainingTime <= 0) {
+        resetTimer(); // If starting with 0, reset everything and don't start timer
+        return;
+    }
 
     isPaused = false; // Timer is no longer paused
 
-    updateButtonVisibility(true);
-    startBtn.textContent = 'Pause'; // Change Start to Pause when running
+    updateButtonVisibility('running');
     animationContainer.style.display = 'block';
 
     const inputs = timer.shadowRoot.querySelectorAll('input');
@@ -129,14 +146,19 @@ function startTimer() {
                 alarmSound.loop = true; // Loop the alarm
                 alarmSound.play();
             }
-            updateButtonVisibility(false); // Show Start/Reset buttons
-            startBtn.textContent = 'Start'; // Reset Start button text
+            updateButtonVisibility('finished'); // Timer finished
             isPaused = false;
+            // Reset font size and width to base
+            inputs.forEach(input => {
+                input.style.fontSize = '64px';
+                input.style.width = '120px'; // Revert width
+            });
+            spans.forEach(span => span.style.fontSize = '64px');
         }
     }, 1000);
 }
 
-function stopTimer() { // This will now act as a Pause button
+function pauseTimer() { // Renamed from stopTimer for clarity
     clearInterval(intervalId);
     intervalId = null;
     animationContainer.style.display = 'none';
@@ -146,24 +168,32 @@ function stopTimer() { // This will now act as a Pause button
 
     isPaused = true; // Mark timer as paused
 
-    updateButtonVisibility(false); // Show Start/Reset buttons
-    startBtn.textContent = 'Resume'; // Change Start button to Resume
+    updateButtonVisibility('paused');
+
+    // Revert font size and width to base
+    const inputs = timer.shadowRoot.querySelectorAll('input');
+    const spans = timer.shadowRoot.querySelectorAll('span');
+    inputs.forEach(input => {
+        input.style.fontSize = '64px';
+        input.style.width = '120px'; // Revert width
+    });
+    spans.forEach(span => span.style.fontSize = '64px');
 }
 
 function resetTimer() {
-    stopTimer(); // This will also pause the timer
+    pauseTimer(); // This will also pause the timer and revert styles
     timer.setTime(0); // Then reset to 0
     lastSetTime = 0;
     remainingTime = 0; // Ensure remainingTime is reset
     isPaused = false; // Not paused if reset
-    startBtn.textContent = 'Start'; // Reset Start button text
+    updateButtonVisibility('initial'); // Ensure correct button state
 }
 
 // --- Event Listeners ---
 document.body.addEventListener('click', unlockAudio, { once: true });
 
 startBtn.addEventListener('click', startTimer);
-stopBtn.addEventListener('click', stopTimer);
+pauseBtn.addEventListener('click', pauseTimer); // Updated event listener
 resetBtn.addEventListener('click', resetTimer);
 
 presets.addEventListener('click', (e) => {
@@ -171,6 +201,9 @@ presets.addEventListener('click', (e) => {
         const time = parseInt(e.target.dataset.time);
         timer.setTime(time);
         lastSetTime = time; // Update lastSetTime when a preset is selected
+        remainingTime = time; // Update remainingTime for potential resume
+        isPaused = false; // Not paused if new preset selected
+        updateButtonVisibility('initial'); // Ensure correct button state
     }
 });
 
