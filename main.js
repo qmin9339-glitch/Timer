@@ -10,7 +10,7 @@ class TimerComponent extends HTMLElement {
                     align-items: center;
                 }
                 input {
-                    width: 70px; /* Adjusted width for two digits */
+                    width: 200px; /* Adjusted width for 00:00:00 format with large font */
                     text-align: center;
                     border: none;
                     background: transparent;
