@@ -74,14 +74,13 @@ body.timer-running timer-component .time-display {
 }
 
 body.timer-running timer-component .time-display input {
-    font-size: max(100vh, 100vw);
-    width: max(100vw, 100vh); /* Adjust width to match font size for better spacing */
+    font-size: min(60vh, 60vw);
     border-bottom: none;
     color: var(--text-color);
 }
 
 body.timer-running timer-component .time-display span {
-    font-size: max(100vh, 100vw);
+    font-size: min(60vh, 60vw);
     color: var(--text-color);
 }
 
@@ -168,7 +167,7 @@ body:not(.timer-running) timer-component .time-display input {
     color: var(--text-color);
     border-bottom: 2px solid var(--input-border);
     margin: 0 5px;
-    transition: color 0.3s, font-size 0.3s, width 0.3s;
+    transition: color 0.3s;
 }
 
 #animation-container {
