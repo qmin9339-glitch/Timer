@@ -177,6 +177,16 @@ body.timer-running #pause {
 
 #stop-alarm {
     background-color: #dc3545; /* Red for Stop Alarm */
+    display: none !important; /* Aggressively hide by default */
+}
+
+body.alarm-ringing #stop-alarm {
+    display: block !important; /* Aggressively show when alarm is ringing */
+    position: fixed; /* Keep it on top */
+    bottom: 20px; /* Position it */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000; /* Ensure it's above other elements */
 }
 
 #stop-alarm:hover {
