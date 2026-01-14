@@ -210,7 +210,13 @@ presets.addEventListener('click', (e) => {
         lastSetTime = time; // Update lastSetTime when a preset is selected
         remainingTime = time; // Update remainingTime for potential resume
         isPaused = false; // Not paused if new preset selected
-        updateButtonVisibility('initial'); // Ensure correct button state
+        // Explicitly set button visibility for initial state
+        startBtn.style.display = 'inline-block';
+        startBtn.textContent = 'Start';
+        pauseBtn.style.display = 'none';
+        resetBtn.style.display = 'inline-block';
+        stopAlarmBtn.style.display = 'none';
+        document.body.classList.remove('timer-running', 'alarm-ringing');
     }
 });
 
