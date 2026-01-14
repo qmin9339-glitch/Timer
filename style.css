@@ -159,21 +159,20 @@ body.dark-mode .presets button:hover {
 
 #pause {
     background-color: #dc3545; /* Red for pause/stop */
-}
-
-#pause:hover {
-    background-color: #c82333;
+    display: none; /* Hidden by default */
 }
 
 body.timer-running #pause {
-    display: block !important;
-    opacity: 1 !important;
-    visibility: visible !important;
+    display: block; /* Show pause button when timer is running */
     position: fixed; /* Keep it on top */
     bottom: 20px; /* Position it */
     left: 50%;
     transform: translateX(-50%);
     z-index: 1000; /* Ensure it's above other elements */
+}
+
+#pause:hover {
+    background-color: #c82333;
 }
 
 #reset {
@@ -196,7 +195,7 @@ body:not(.timer-running) timer-component .time-display input {
 
 #animation-container {
     position: fixed;
-    bottom: 0;
+    bottom: 100px; /* Position above the fixed pause button */
     left: 0;
     width: 100%;
     height: 100px;

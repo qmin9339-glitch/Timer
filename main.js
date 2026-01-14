@@ -84,27 +84,31 @@ function unlockAudio() {
 }
 
 function updateButtonVisibility(state) { // 'initial', 'running', 'paused', 'finished'
+    document.body.classList.remove('timer-running', 'alarm-ringing'); // Clear all state classes first
+    startBtn.classList.add('hidden');
+    resetBtn.classList.add('hidden');
+    stopAlarmBtn.classList.add('hidden');
+
     switch (state) {
         case 'initial':
         case 'finished':
             startBtn.classList.remove('hidden');
             startBtn.textContent = 'Start';
-            pauseBtn.classList.add('hidden');
             resetBtn.classList.remove('hidden');
-            document.body.classList.remove('timer-running');
             break;
         case 'running':
-            startBtn.classList.add('hidden');
-            pauseBtn.classList.remove('hidden');
-            resetBtn.classList.add('hidden');
+            // pauseBtn visibility handled by CSS
             document.body.classList.add('timer-running');
             break;
         case 'paused':
             startBtn.classList.remove('hidden');
             startBtn.textContent = 'Resume';
-            pauseBtn.classList.add('hidden');
             resetBtn.classList.remove('hidden');
             document.body.classList.remove('timer-running');
+            break;
+        case 'alarmRinging':
+            stopAlarmBtn.classList.remove('hidden');
+            document.body.classList.add('alarm-ringing');
             break;
     }
 }
