@@ -18,10 +18,10 @@ class TimerComponent extends HTMLElement {
                     border-bottom: 2px solid var(--input-border, #ccc);
                     margin: 0 5px;
                     transition: color 0.3s;
-                    font-size: 32px; /* Base font size */
+                    font-size: 64px; /* Base font size */
                 }
                 span {
-                    font-size: 32px; /* Base font size */
+                    font-size: 64px; /* Base font size */
                 }
             </style>
             <div class="time-display">
@@ -98,8 +98,8 @@ function startTimer() {
 
     const inputs = timer.shadowRoot.querySelectorAll('input');
     const spans = timer.shadowRoot.querySelectorAll('span');
-    inputs.forEach(input => input.style.fontSize = '64px');
-    spans.forEach(span => span.style.fontSize = '64px');
+    inputs.forEach(input => input.style.fontSize = '120px');
+    spans.forEach(span => span.style.fontSize = '120px');
 
     intervalId = setInterval(() => {
         remainingTime--;
@@ -128,8 +128,8 @@ function stopTimer() {
 
     const inputs = timer.shadowRoot.querySelectorAll('input');
     const spans = timer.shadowRoot.querySelectorAll('span');
-    inputs.forEach(input => input.style.fontSize = '32px'); // Reset to base font size
-    spans.forEach(span => span.style.fontSize = '32px'); // Reset to base font size
+    inputs.forEach(input => input.style.fontSize = '64px'); // Reset to base font size
+    spans.forEach(span => span.style.fontSize = '64px'); // Reset to base font size
 }
 
 function resetTimer() {
