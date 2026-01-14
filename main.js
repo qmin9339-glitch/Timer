@@ -57,182 +57,193 @@ class TimerComponent extends HTMLElement {
 
 customElements.define('timer-component', TimerComponent);
 
-const timer = document.querySelector('timer-component');
-const startBtn = document.getElementById('start');
-const pauseBtn = document.getElementById('pause'); // Renamed from stopBtn
-const resetBtn = document.getElementById('reset');
-const presets = document.querySelector('.presets');
-const toggleSoundBtn = document.getElementById('toggle-sound');
-const toggleThemeBtn = document.getElementById('toggle-theme');
-const alarmSound = document.getElementById('alarm-sound');
-const animationContainer = document.getElementById('animation-container');
-const mouseAnimation = document.getElementById('mouse-animation');
+document.addEventListener('DOMContentLoaded', () => {
+    const timer = document.querySelector('timer-component');
+    const startBtn = document.getElementById('start');
+    const pauseBtn = document.getElementById('pause'); // Renamed from stopBtn
+    const resetBtn = document.getElementById('reset');
+    const presets = document.querySelector('.presets');
+    const toggleSoundBtn = document.getElementById('toggle-sound');
+    const toggleThemeBtn = document.getElementById('toggle-theme');
+    const alarmSound = document.getElementById('alarm-sound');
+    const animationContainer = document.getElementById('animation-container');
+    const mouseAnimation = document.getElementById('mouse-animation');
+    const stopAlarmBtn = document.getElementById('stop-alarm'); // New constant for Stop Alarm button
 
-let intervalId = null;
-let remainingTime = 0;
-let soundEnabled = true;
-let userInteracted = false;
-let lastSetTime = 0; // Stores the initial set time
-let isPaused = false; // New state to track if timer is paused
+    let intervalId = null;
+    let remainingTime = 0;
+    let soundEnabled = true;
+    let userInteracted = false;
+    let lastSetTime = 0; // Stores the initial set time
+    let isPaused = false; // New state to track if timer is paused
 
-function unlockAudio() {
-    if (userInteracted) return;
-    alarmSound.play();
-    alarmSound.pause();
-    alarmSound.currentTime = 0;
-    userInteracted = true;
-}
+    function unlockAudio() {
+        if (userInteracted) return;
+        alarmSound.play();
+        alarmSound.pause();
+        alarmSound.currentTime = 0;
+        userInteracted = true;
+    }
 
-function updateButtonVisibility(state) { // 'initial', 'running', 'paused', 'finished', 'alarmRinging'
-    document.body.classList.remove('timer-running', 'alarm-ringing'); // Clear all state classes first
-    
-    // Explicitly hide all buttons first
-    startBtn.style.display = 'none';
-    pauseBtn.style.display = 'none';
-    resetBtn.style.display = 'none';
-    stopAlarmBtn.style.display = 'none';
+    function updateButtonVisibility(state) { // 'initial', 'running', 'paused', 'finished', 'alarmRinging'
+        document.body.classList.remove('timer-running', 'alarm-ringing'); // Clear all state classes first
+        
+        // Explicitly hide all buttons first
+        startBtn.style.display = 'none';
+        pauseBtn.style.display = 'none';
+        resetBtn.style.display = 'none';
+        stopAlarmBtn.style.display = 'none';
 
-    switch (state) {
-        case 'initial':
-        case 'finished':
+        switch (state) {
+            case 'initial':
+            case 'finished':
+                startBtn.style.display = 'inline-block';
+                startBtn.textContent = 'Start';
+                resetBtn.style.display = 'inline-block';
+                break;
+            case 'running':
+                pauseBtn.style.display = 'inline-block'; // Pause button is visible when running
+                document.body.classList.add('timer-running');
+                break;
+            case 'paused':
+                startBtn.style.display = 'inline-block';
+                startBtn.textContent = 'Resume';
+                resetBtn.style.display = 'inline-block';
+                document.body.classList.remove('timer-running');
+                break;
+            case 'alarmRinging':
+                stopAlarmBtn.style.display = 'inline-block'; // Stop Alarm button is visible
+                document.body.classList.add('alarm-ringing');
+                break;
+        }
+    }
+
+    function startTimer() {
+        if (intervalId) return; // Timer is already running
+
+        if (!isPaused) {
+            lastSetTime = timer.getTimeInSeconds(); // Store the initial time only if not resuming
+            remainingTime = lastSetTime;
+        }
+        
+        // Only start if there's time remaining OR if it's a resume from pause.
+        // If remainingTime is 0 and it's not a resume, it means no time is set.
+        if (remainingTime <= 0 && !isPaused) {
+            // If no time is set and it's a fresh start, do not start the timer.
+            // Ensure buttons are in the initial state.
+            updateButtonVisibility('initial');
+            timer.setTime(0); // Display 00:00:00
+            lastSetTime = 0;
+            return;
+        }
+
+        isPaused = false; // Timer is no longer paused
+
+        updateButtonVisibility('running');
+        animationContainer.style.display = 'block';
+
+        const inputs = timer.shadowRoot.querySelectorAll('input');
+        const spans = timer.shadowRoot.querySelectorAll('span');
+        inputs.forEach(input => {
+            input.style.fontSize = '120px';
+            input.style.width = '240px'; // Adjust width for 120px font
+        });
+        spans.forEach(span => span.style.fontSize = '120px');
+
+        intervalId = setInterval(() => {
+            remainingTime--;
+            timer.setTime(remainingTime);
+            if (remainingTime <= 0) {
+                clearInterval(intervalId);
+                intervalId = null;
+                animationContainer.style.display = 'none';
+                if (soundEnabled) {
+                    alarmSound.loop = true; // Loop the alarm
+                    alarmSound.play();
+                }
+                updateButtonVisibility('finished'); // Timer finished
+                isPaused = false;
+                // Reset font size and width to base
+                inputs.forEach(input => {
+                    input.style.fontSize = '64px';
+                    input.style.width = '120px'; // Revert width
+                });
+                spans.forEach(span => span.style.fontSize = '64px');
+            }
+        }, 1000);
+    }
+
+    function pauseTimer() { // Renamed from stopTimer for clarity
+        clearInterval(intervalId);
+        intervalId = null;
+        animationContainer.style.display = 'none';
+        alarmSound.pause();
+        alarmSound.currentTime = 0;
+        alarmSound.loop = false; // Stop looping
+
+        isPaused = true; // Mark timer as paused
+
+        updateButtonVisibility('paused');
+
+        // Revert font size and width to base
+        const inputs = timer.shadowRoot.querySelectorAll('input');
+        const spans = timer.shadowRoot.querySelectorAll('span');
+        inputs.forEach(input => {
+            input.style.fontSize = '64px';
+            input.style.width = '120px'; // Revert width
+        });
+        spans.forEach(span => span.style.fontSize = '64px');
+    }
+
+    function stopAlarm() {
+        alarmSound.pause();
+        alarmSound.currentTime = 0;
+        alarmSound.loop = false;
+        updateButtonVisibility('initial'); // Go back to initial state
+    }
+
+    function resetTimer() {
+        pauseTimer(); // This will also pause the timer and revert styles
+        timer.setTime(0); // Then reset to 0
+        lastSetTime = 0;
+        remainingTime = 0; // Ensure remainingTime is reset
+        isPaused = false; // Not paused if reset
+        updateButtonVisibility('initial'); // Ensure correct button state
+    }
+
+    // --- Event Listeners ---
+    document.body.addEventListener('click', unlockAudio, { once: true });
+
+    startBtn.addEventListener('click', startTimer);
+    pauseBtn.addEventListener('click', pauseTimer); // Updated event listener
+    resetBtn.addEventListener('click', resetTimer);
+    stopAlarmBtn.addEventListener('click', stopAlarm); // New event listener
+
+    presets.addEventListener('click', (e) => {
+        if (e.target.tagName === 'BUTTON') {
+            const time = parseInt(e.target.dataset.time);
+            lastSetTime = time; // Update lastSetTime when a preset is selected
+            remainingTime = time; // Update remainingTime for potential resume
+            isPaused = false; // Not paused if new preset selected
+            // Explicitly set button visibility for initial state
             startBtn.style.display = 'inline-block';
             startBtn.textContent = 'Start';
+            pauseBtn.style.display = 'none';
             resetBtn.style.display = 'inline-block';
-            break;
-        case 'running':
-            pauseBtn.style.display = 'inline-block'; // Pause button is visible when running
-            document.body.classList.add('timer-running');
-            break;
-        case 'paused':
-            startBtn.style.display = 'inline-block';
-            startBtn.textContent = 'Resume';
-            resetBtn.style.display = 'inline-block';
-            document.body.classList.remove('timer-running');
-            break;
-        case 'alarmRinging':
-            stopAlarmBtn.style.display = 'inline-block'; // Stop Alarm button is visible
-            document.body.classList.add('alarm-ringing');
-            break;
-    }
-}
-
-function startTimer() {
-    if (intervalId) return; // Timer is already running
-
-    if (!isPaused) {
-        lastSetTime = timer.getTimeInSeconds(); // Store the initial time only if not resuming
-        remainingTime = lastSetTime;
-    }
-    
-    // Only start if there's time remaining OR if it's a resume from pause.
-    // If remainingTime is 0 and it's not a resume, it means no time is set.
-    if (remainingTime <= 0 && !isPaused) {
-        // If no time is set and it's a fresh start, do not start the timer.
-        // Ensure buttons are in the initial state.
-        updateButtonVisibility('initial');
-        timer.setTime(0); // Display 00:00:00
-        lastSetTime = 0;
-        return;
-    }
-
-    isPaused = false; // Timer is no longer paused
-
-    updateButtonVisibility('running');
-    animationContainer.style.display = 'block';
-
-    const inputs = timer.shadowRoot.querySelectorAll('input');
-    const spans = timer.shadowRoot.querySelectorAll('span');
-    inputs.forEach(input => {
-        input.style.fontSize = '120px';
-        input.style.width = '240px'; // Adjust width for 120px font
-    });
-    spans.forEach(span => span.style.fontSize = '120px');
-
-    intervalId = setInterval(() => {
-        remainingTime--;
-        timer.setTime(remainingTime);
-        if (remainingTime <= 0) {
-            clearInterval(intervalId);
-            intervalId = null;
-            animationContainer.style.display = 'none';
-            if (soundEnabled) {
-                alarmSound.loop = true; // Loop the alarm
-                alarmSound.play();
-            }
-            updateButtonVisibility('finished'); // Timer finished
-            isPaused = false;
-            // Reset font size and width to base
-            inputs.forEach(input => {
-                input.style.fontSize = '64px';
-                input.style.width = '120px'; // Revert width
-            });
-            spans.forEach(span => span.style.fontSize = '64px');
+            stopAlarmBtn.style.display = 'none';
+            document.body.classList.remove('timer-running', 'alarm-ringing');
+            timer.setTime(time); // Ensure timer display is updated
         }
-    }, 1000);
-}
-
-function pauseTimer() { // Renamed from stopTimer for clarity
-    clearInterval(intervalId);
-    intervalId = null;
-    animationContainer.style.display = 'none';
-    alarmSound.pause();
-    alarmSound.currentTime = 0;
-    alarmSound.loop = false; // Stop looping
-
-    isPaused = true; // Mark timer as paused
-
-    updateButtonVisibility('paused');
-
-    // Revert font size and width to base
-    const inputs = timer.shadowRoot.querySelectorAll('input');
-    const spans = timer.shadowRoot.querySelectorAll('span');
-    inputs.forEach(input => {
-        input.style.fontSize = '64px';
-        input.style.width = '120px'; // Revert width
     });
-    spans.forEach(span => span.style.fontSize = '64px');
-}
 
-function resetTimer() {
-    pauseTimer(); // This will also pause the timer and revert styles
-    timer.setTime(0); // Then reset to 0
-    lastSetTime = 0;
-    remainingTime = 0; // Ensure remainingTime is reset
-    isPaused = false; // Not paused if reset
-    updateButtonVisibility('initial'); // Ensure correct button state
-}
+    toggleSoundBtn.addEventListener('click', () => {
+        soundEnabled = !soundEnabled;
+        toggleSoundBtn.textContent = `Sound: ${soundEnabled ? 'On' : 'Off'}`;
+    });
 
-// --- Event Listeners ---
-document.body.addEventListener('click', unlockAudio, { once: true });
-
-startBtn.addEventListener('click', startTimer);
-pauseBtn.addEventListener('click', pauseTimer); // Updated event listener
-resetBtn.addEventListener('click', resetTimer);
-
-presets.addEventListener('click', (e) => {
-    if (e.target.tagName === 'BUTTON') {
-        const time = parseInt(e.target.dataset.time);
-        lastSetTime = time; // Update lastSetTime when a preset is selected
-        remainingTime = time; // Update remainingTime for potential resume
-        isPaused = false; // Not paused if new preset selected
-        // Explicitly set button visibility for initial state
-        startBtn.style.display = 'inline-block';
-        startBtn.textContent = 'Start';
-        pauseBtn.style.display = 'none';
-        resetBtn.style.display = 'inline-block';
-        stopAlarmBtn.style.display = 'none';
-        document.body.classList.remove('timer-running', 'alarm-ringing');
-        timer.setTime(time); // Ensure timer display is updated
-    }
-});
-
-toggleSoundBtn.addEventListener('click', () => {
-    soundEnabled = !soundEnabled;
-    toggleSoundBtn.textContent = `Sound: ${soundEnabled ? 'On' : 'Off'}`;
-});
-
-toggleThemeBtn.addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
-    const isDarkMode = document.body.classList.contains('dark-mode');
-    toggleThemeBtn.textContent = `Theme: ${isDarkMode ? 'Dark' : 'Light'}`;
+    toggleThemeBtn.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        const isDarkMode = document.body.classList.contains('dark-mode');
+        toggleThemeBtn.textContent = `Theme: ${isDarkMode ? 'Dark' : 'Light'}`;
+    });
 });
