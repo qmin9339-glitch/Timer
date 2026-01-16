@@ -85,36 +85,32 @@ document.addEventListener('DOMContentLoaded', () => {
         userInteracted = true;
     }
 
-    function updateButtonVisibility(state) { // 'initial', 'running', 'paused', 'finished', 'alarmRinging'
-        document.body.classList.remove('timer-running', 'alarm-ringing'); // Clear all state classes first
-        
-        // Explicitly hide all buttons first
-        startBtn.style.display = 'none';
-        pauseBtn.style.display = 'none';
-        resetBtn.style.display = 'none';
-        stopAlarmBtn.style.display = 'none';
+    function updateButtonVisibility(state) {
+        const isCurrentlyRunning = state === 'running';
+        const isAlarmRinging = state === 'alarmRinging';
+        const isPausedState = state === 'paused';
 
-        switch (state) {
-            case 'initial':
-            case 'finished':
-                startBtn.style.display = 'inline-block';
-                startBtn.textContent = 'Start';
-                resetBtn.style.display = 'inline-block';
-                break;
-            case 'running':
-                pauseBtn.style.display = 'inline-block'; // Pause button is visible when running
-                document.body.classList.add('timer-running');
-                break;
-            case 'paused':
-                startBtn.style.display = 'inline-block';
-                startBtn.textContent = 'Resume';
-                resetBtn.style.display = 'inline-block';
-                document.body.classList.remove('timer-running');
-                break;
-            case 'alarmRinging':
-                stopAlarmBtn.style.display = 'inline-block'; // Stop Alarm button is visible
-                document.body.classList.add('alarm-ringing');
-                break;
+        startBtn.style.display = (state === 'initial' || isPausedState || state === 'finished') ? 'inline-block' : 'none';
+        pauseBtn.style.display = isCurrentlyRunning ? 'inline-block' : 'none';
+        stopAlarmBtn.style.display = isAlarmRinging ? 'inline-block' : 'none';
+        resetBtn.style.display = (state === 'initial' || isPausedState || state === 'finished') ? 'inline-block' : 'none';
+
+        if (isCurrentlyRunning) {
+            document.body.classList.add('timer-running');
+        } else {
+            document.body.classList.remove('timer-running');
+        }
+
+        if (isAlarmRinging) {
+            document.body.classList.add('alarm-ringing');
+        } else {
+            document.body.classList.remove('alarm-ringing');
+        }
+
+        if (isPausedState) {
+            startBtn.textContent = 'Resume';
+        } else {
+            startBtn.textContent = 'Start';
         }
     }
 
@@ -138,7 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         isPaused = false; // Timer is no longer paused
-
+        timer.shadowRoot.querySelectorAll('input').forEach(input => input.disabled = true);
         updateButtonVisibility('running');
         animationContainer.style.display = 'block';
 
@@ -165,6 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                     updateButtonVisibility('finished'); // Timer finished, no alarm
                                 }
                                 isPaused = false;
+                                timer.shadowRoot.querySelectorAll('input').forEach(input => input.disabled = false);
                                 // Reset font size and width to base
                                 inputs.forEach(input => {
                                     input.style.fontSize = '64px';
@@ -184,6 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         alarmSound.loop = false; // Stop looping
                 
                         isPaused = true; // Mark timer as paused
+                        timer.shadowRoot.querySelectorAll('input').forEach(input => input.disabled = false);
                 
                         updateButtonVisibility('paused');
                 
@@ -202,6 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         alarmSound.currentTime = 0;
                         alarmSound.loop = false;
                         updateButtonVisibility('initial'); // Go back to initial state
+                        timer.shadowRoot.querySelectorAll('input').forEach(input => input.disabled = false);
                     }
                 
                     function resetTimer() {
@@ -211,6 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         remainingTime = 0; // Ensure remainingTime is reset
                         isPaused = false; // Not paused if reset
                         updateButtonVisibility('initial'); // Ensure correct button state
+                        timer.shadowRoot.querySelectorAll('input').forEach(input => input.disabled = false);
                     }
                 
                     // --- Event Listeners ---

@@ -160,21 +160,11 @@ body.dark-mode .presets button:hover {
 }
 
 #pause {
-    background-color: #dc3545; /* Red for pause/stop */
-    display: none; /* Hidden by default */
-}
-
-body.timer-running #pause {
-    display: block; /* Show pause button when timer is running */
-    position: fixed; /* Keep it on top */
-    bottom: 20px; /* Position it */
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1000; /* Ensure it's above other elements */
+    background-color: #ffc107;
 }
 
 #pause:hover {
-    background-color: #c82333;
+    background-color: #e0a800;
 }
 
 #reset {
@@ -182,17 +172,7 @@ body.timer-running #pause {
 }
 
 #stop-alarm {
-    background-color: #dc3545; /* Red for Stop Alarm */
-    display: none !important; /* Aggressively hide by default */
-}
-
-body.alarm-ringing #stop-alarm {
-    display: block !important; /* Aggressively show when alarm is ringing */
-    position: fixed; /* Keep it on top */
-    bottom: 20px; /* Position it */
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1000; /* Ensure it's above other elements */
+    background-color: #dc3545;
 }
 
 #stop-alarm:hover {
@@ -210,13 +190,10 @@ body:not(.timer-running) timer-component .time-display input {
 }
 
 #animation-container {
-    position: fixed;
-    bottom: 100px; /* Position above the fixed pause button */
-    left: 0;
+    position: relative;
     width: 100%;
     height: 100px;
     overflow: hidden;
-    display: none;
 }
 
 #mouse-animation {
