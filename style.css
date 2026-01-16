@@ -209,11 +209,6 @@ body:not(.timer-running) timer-component .time-display input {
     animation: move-mouse 8s linear infinite;
 }
 
-#pause-container {
-    text-align: center;
-    margin-top: 20px;
-}
-
 @keyframes move-mouse {
     from {
         transform: translateX(-80px);
