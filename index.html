@@ -20,6 +20,9 @@
             </div>
         </div>
         <timer-component></timer-component>
+        <div id="animation-container" style="display: none;">
+            <div id="mouse-animation"></div>
+        </div>
         <div class="presets">
             <button data-time="10">10s</button>
             <button data-time="20">20s</button>
@@ -33,14 +36,13 @@
         <div class="controls">
             <div id="timer-main-controls">
                 <button id="start">Start</button>
-                <button id="pause" style="display: none;">Pause</button>
+                <button id="reset">Reset</button>
                 <button id="stop-alarm" style="display: none;">Stop Alarm</button>
             </div>
-            <button id="reset">Reset</button>
         </div>
-    </div>
-    <div id="animation-container" style="display: none;">
-        <div id="mouse-animation"></div>
+        <div id="pause-container" style="display: none;">
+            <button id="pause">Pause</button>
+        </div>
     </div>
     <audio id="alarm-sound" src="loud_alarm_sound.mp3" preload="auto"></audio>
     <script src="main.js"></script>

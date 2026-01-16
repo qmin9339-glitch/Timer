@@ -69,6 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const animationContainer = document.getElementById('animation-container');
     const mouseAnimation = document.getElementById('mouse-animation');
     const stopAlarmBtn = document.getElementById('stop-alarm'); // New constant for Stop Alarm button
+    const pauseContainer = document.getElementById('pause-container');
 
     let intervalId = null;
     let remainingTime = 0;
@@ -86,32 +87,33 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function updateButtonVisibility(state) {
-        const isCurrentlyRunning = state === 'running';
-        const isAlarmRinging = state === 'alarmRinging';
+        const isRunning = state === 'running';
+        const isAlarming = state === 'alarmRinging';
         const isPausedState = state === 'paused';
+        const isInitial = state === 'initial' || state === 'finished';
 
-        startBtn.style.display = (state === 'initial' || isPausedState || state === 'finished') ? 'inline-block' : 'none';
-        pauseBtn.style.display = isCurrentlyRunning ? 'inline-block' : 'none';
-        stopAlarmBtn.style.display = isAlarmRinging ? 'inline-block' : 'none';
-        resetBtn.style.display = (state === 'initial' || isPausedState || state === 'finished') ? 'inline-block' : 'none';
+        // Manage visibility of button containers
+        document.getElementById('timer-main-controls').style.display = (isInitial || isPausedState) ? 'block' : 'none';
+        pauseContainer.style.display = isRunning ? 'block' : 'none';
 
-        if (isCurrentlyRunning) {
-            document.body.classList.add('timer-running');
-        } else {
-            document.body.classList.remove('timer-running');
+        // Manage individual buttons
+        startBtn.style.display = (isInitial || isPausedState) ? 'inline-block' : 'none';
+        resetBtn.style.display = (isInitial || isPausedState) ? 'inline-block' : 'none';
+        stopAlarmBtn.style.display = isAlarming ? 'inline-block' : 'none';
+
+        // Hide main controls when alarm is ringing and show only stop alarm
+        if (isAlarming) {
+            document.getElementById('timer-main-controls').style.display = 'block';
+            startBtn.style.display = 'none';
+            resetBtn.style.display = 'none';
         }
 
-        if (isAlarmRinging) {
-            document.body.classList.add('alarm-ringing');
-        } else {
-            document.body.classList.remove('alarm-ringing');
-        }
+        // Update body classes
+        document.body.classList.toggle('timer-running', isRunning);
+        document.body.classList.toggle('alarm-ringing', isAlarming);
 
-        if (isPausedState) {
-            startBtn.textContent = 'Resume';
-        } else {
-            startBtn.textContent = 'Start';
-        }
+        // Update Start/Resume text
+        startBtn.textContent = isPausedState ? 'Resume' : 'Start';
     }
 
     function startTimer() {
