@@ -108,13 +108,32 @@ body.timer-running timer-component .time-display span {
 
 .settings button {
     margin-left: 10px;
-    padding: 8px 12px;
+    padding: 8px 12px; /* Default padding for text buttons */
     border: 1px solid var(--button-border);
     border-radius: 5px;
     background-color: var(--button-bg);
     color: var(--text-color);
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
+}
+
+#feedback-button {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    border: none; /* Remove border for emoji button */
+    border-radius: 50%; /* Make it round */
+    font-size: 20px; /* Larger font size for emoji */
+    /* background-color and color will inherit from .settings button,
+       but we can explicitly set if needed */
+}
+
+#feedback-button:hover {
+    background-color: var(--button-border, #ccc); /* Hover effect */
+    transform: scale(1.1); /* Slight grow on hover */
 }
 
 .presets {

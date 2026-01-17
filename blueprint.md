@@ -29,6 +29,7 @@ This is a timer application that allows users to set a time, start, stop, and re
 *   **청록색 파비콘으로 업데이트:** 파비콘의 색상을 청록색 계열로 변경하여 시인성을 개선했습니다.
 *   **검색 엔진 최적화(SEO) 적용 및 `robots.txt` 보충:** Google 및 Naver 가이드라인에 따라 메타 태그, 표준 URL, `sitemap.xml` 등을 최적화하고, `robots.txt` 파일에 추가적인 Disallow 규칙 및 `sitemap.xml`에 대한 명시적인 Allow 규칙을 적용했습니다.
 *   **소셜 공유 버튼 이모지 및 좌측 상단 배치로 재설계:** 웹사이트의 소셜 공유 버튼을 이모티콘으로 변경하고, 페이지의 좌측 상단에 배치되도록 디자인을 재설계했습니다.
+*   **Userback 피드백 버튼 추가:** Userback 스크립트가 통합되었고, 상단 우측에 이모지(📝) 형태의 피드백 버튼이 추가되었습니다.
 
 ## Current Plan
 
