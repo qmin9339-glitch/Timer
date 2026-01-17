@@ -20,6 +20,10 @@ This is a timer application that allows users to set a time, start, stop, and re
 *   **Animation:** A line-art animation of a moving mouse is displayed while the timer is running.
 *   **Responsive Design:** The layout is optimized for mobile devices.
 
+## Implemented Changes
+
+*   **Google Analytics Integration:** Added Google Analytics (gtag.js) script to `index.html` for tracking website usage.
+
 ## Current Plan
 
 1.  **Update `blueprint.md`:** Reflect new UI and animation requirements.
