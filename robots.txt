@@ -1,2 +1,3 @@
 User-agent: *
 Allow: /
+Sitemap: https://timer-c20.pages.dev/sitemap.xml
