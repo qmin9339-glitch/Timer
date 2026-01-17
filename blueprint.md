@@ -27,7 +27,7 @@ This is a timer application that allows users to set a time, start, stop, and re
 *   **MS Clarity Integration:** Added MS Clarity script to `index.html` for web analytics and session recording.
 *   **ads.txt 파일 추가:** 애드센스 게시자 ID를 사용하여 `ads.txt` 파일을 생성하고 루트 디렉토리에 배치했습니다.
 *   **청록색 파비콘으로 업데이트:** 파비콘의 색상을 청록색 계열로 변경하여 시인성을 개선했습니다.
-*   **검색 엔진 최적화(SEO) 적용:** Google 및 Naver 가이드라인에 따라 메타 태그, 표준 URL, `robots.txt`, `sitemap.xml` 등을 최적화했습니다.
+*   **검색 엔진 최적화(SEO) 적용 및 `robots.txt` 보충:** Google 및 Naver 가이드라인에 따라 메타 태그, 표준 URL, `sitemap.xml` 등을 최적화하고, `robots.txt` 파일에 추가적인 Disallow 규칙을 적용했습니다.
 
 ## Current Plan
 

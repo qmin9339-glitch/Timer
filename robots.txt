@@ -1,3 +1,14 @@
 User-agent: *
 Allow: /
+Disallow: /temp/
+Disallow: /tmp/
+Disallow: /private/
+Disallow: /admin/
+Disallow: /cgi-bin/
+Disallow: /uploads/
+Disallow: /node_modules/
+Disallow: /.git/
+Disallow: /.vscode/
+Disallow: /.idx/
+
 Sitemap: https://timer-c20.pages.dev/sitemap.xml
