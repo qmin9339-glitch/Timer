@@ -23,6 +23,7 @@ This is a timer application that allows users to set a time, start, stop, and re
 ## Implemented Changes
 
 *   **Google Analytics Integration:** Added Google Analytics (gtag.js) script to `index.html` for tracking website usage.
+*   **Korean Localization:** Translated the application's user interface from English to Korean.
 
 ## Current Plan
 
