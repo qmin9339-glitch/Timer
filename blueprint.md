@@ -23,7 +23,7 @@ This is a timer application that allows users to set a time, start, stop, and re
 ## Implemented Changes
 
 *   **Google Analytics Integration:** Added Google Analytics (gtag.js) script to `index.html` for tracking website usage.
-*   **Korean Localization:** Translated the application's user interface from English to Korean.
+*   **Korean Localization (Rolled Back):** The application's user interface has been reverted from Korean to English.
 *   **MS Clarity Integration:** Added MS Clarity script to `index.html` for web analytics and session recording.
 *   **ads.txt 파일 추가:** 애드센스 게시자 ID를 사용하여 `ads.txt` 파일을 생성하고 루트 디렉토리에 배치했습니다.
 
