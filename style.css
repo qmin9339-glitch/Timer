@@ -84,6 +84,7 @@ body.timer-running timer-component .time-display {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 5px; /* Reduced margin */
+    position: relative; /* Allow positioning children relative to header */
 }
 
 .header h1 {
@@ -235,28 +236,43 @@ body:not(.timer-running) timer-component .time-display input {
 
 /* Share Buttons */
 .share-buttons {
+    position: absolute; /* Position absolutely within .header */
+    top: 5px; /* Adjust as needed */
+    left: 5px; /* Adjust as needed */
     display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 20px;
-    padding: 10px;
-    background-color: var(--button-bg, #f0f0f0);
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+    gap: 5px; /* Smaller gap for emojis */
+    padding: 0; /* Remove padding from container */
+    background-color: transparent; /* Make background transparent */
+    box-shadow: none; /* Remove shadow */
+    flex-wrap: nowrap; /* Prevent wrapping for small number of buttons */
+    z-index: 10; /* Ensure buttons are above other content if needed */
 }
 
 .share-buttons button {
-    padding: 8px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    background-color: #007bff; /* A nice blue for share buttons */
-    color: white;
-    font-size: 14px;
-    transition: background-color 0.3s ease;
+    width: 36px; /* Make buttons square */
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0; /* Remove padding */
+    border: none; /* Remove border */
+    border-radius: 50%; /* Make them round */
+    background-color: var(--button-bg, #f0f0f0); /* Use theme button background */
+    color: var(--text-color, #333); /* Use theme text color */
+    font-size: 20px; /* Larger font size for emojis */
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .share-buttons button:hover {
-    background-color: #0056b3;
+    background-color: var(--button-border, #ccc); /* Hover effect */
+    transform: scale(1.1); /* Slight grow on hover */
+}
+
+body.dark-mode .share-buttons button {
+    background-color: var(--button-bg, #555);
+    color: var(--text-color, #f0f0f0);
+}
+
+body.dark-mode .share-buttons button:hover {
+    background-color: var(--button-border, #666);
 }

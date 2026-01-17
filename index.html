@@ -48,6 +48,12 @@
 <body>
     <div class="timer-container">
         <div class="header">
+            <div class="share-buttons">
+                <button id="share-twitter">🐦</button>
+                <button id="share-facebook">📘</button>
+                <button id="share-email">📧</button>
+                <button id="copy-link">🔗</button>
+            </div>
             <h1>Timer</h1>
             <div class="settings">
                 <button id="toggle-sound">Sound: On</button>
@@ -56,37 +62,5 @@
         </div>
         <timer-component></timer-component>
         <div id="animation-container" style="display: none;">
-            <div id="mouse-animation"></div>
-        </div>
-        <div class="presets">
-            <button data-time="10">10s</button>
-            <button data-time="20">20s</button>
-            <button data-time="30">30s</button>
-            <button data-time="60">1m</button>
-            <button data-time="120">2m</button>
-            <button data-time="180">3m</button>
-            <button data-time="300">5m</button>
-            <button data-time="600">10m</button>
-        </div>
-        <div class="controls">
-            <div id="timer-main-controls">
-                <button id="start">Start</button>
-                <button id="reset">Reset</button>
-                <button id="pause" style="display: none;">Pause</button>
-                <button id="stop-alarm" style="display: none;">Stop Alarm</button>
-            </div>
-        </div>
-    </div>
-    <audio id="alarm-sound" src="loud_alarm_sound.mp3" preload="auto"></audio>
-    <script src="main.js"></script>
-    <div class="share-buttons">
-        <button id="share-twitter">Share on Twitter</button>
-        <button id="share-facebook">Share on Facebook</button>
-        <button id="share-email">Share via Email</button>
-        <button id="copy-link">Copy Link</button>
-    </div>
-    <footer>
-        <p>&copy; 2024 Timer App. All rights reserved.</p>
-    </footer>
 </body>
 </html>
