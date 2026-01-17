@@ -232,4 +232,48 @@ document.addEventListener('DOMContentLoaded', () => {
         const isDarkMode = document.body.classList.contains('dark-mode');
         toggleThemeBtn.textContent = `Theme: ${isDarkMode ? 'Dark' : 'Light'}`;
     });
+
+    // --- Share Button Event Listeners ---
+    const shareTwitterBtn = document.getElementById('share-twitter');
+    const shareFacebookBtn = document.getElementById('share-facebook');
+    const shareEmailBtn = document.getElementById('share-email');
+    const copyLinkBtn = document.getElementById('copy-link');
+
+    const canonicalUrl = "https://timer-c20.pages.dev/";
+    const shareText = "Online Timer | Simple & Elegant Countdown. Check it out!";
+
+    if (shareTwitterBtn) {
+        shareTwitterBtn.addEventListener('click', () => {
+            const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(canonicalUrl)}`;
+            window.open(twitterUrl, '_blank');
+        });
+    }
+
+    if (shareFacebookBtn) {
+        shareFacebookBtn.addEventListener('click', () => {
+            const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(canonicalUrl)}`;
+            window.open(facebookUrl, '_blank');
+        });
+    }
+
+    if (shareEmailBtn) {
+        shareEmailBtn.addEventListener('click', () => {
+            const emailSubject = "Check out this Online Timer!";
+            const emailBody = `${shareText}\n\n${canonicalUrl}`;
+            const emailUrl = `mailto:?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+            window.open(emailUrl, '_self'); // _self to open in same tab
+        });
+    }
+
+    if (copyLinkBtn) {
+        copyLinkBtn.addEventListener('click', async () => {
+            try {
+                await navigator.clipboard.writeText(canonicalUrl);
+                alert('Link copied to clipboard!'); // User feedback
+            } catch (err) {
+                console.error('Failed to copy: ', err);
+                alert('Failed to copy link. Please copy manually: ' + canonicalUrl);
+            }
+        });
+    }
 });
